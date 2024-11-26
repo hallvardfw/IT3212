@@ -3,12 +3,15 @@ import numpy as np
 from skimage import io, color, exposure
 from skimage.feature import hog
 from scipy import ndimage as ndi
+import glob 
 
-image_paths = ['data/suv/PIC_11.jpg', 'data/suv/PIC_5.jpg', 'data/motorcycle/PIC_157.jpg']
+image_paths = glob.glob('pp_data/augmented/*/*.jpg') + glob.glob('pp_data/normalized/*/*.jpg')
 
 pixels = 8
 cells = 2
 orientations = 50
+
+hog_features_list = []
 
 for i, image_path in enumerate(image_paths):
 
@@ -28,12 +31,8 @@ for i, image_path in enumerate(image_paths):
                                   visualize=True, 
                                   block_norm='L2-Hys')
     
-    hog_image_rescaled = exposure.rescale_intensity(hog_image, in_range=(0, 10))
-
-    fig, ax1 = plt.subplots()
-
-    ax1.imshow(hog_image_rescaled, cmap=plt.cm.gray)
-    ax1.set_title('HOG Features')
-
-    plt.tight_layout()
-    plt.savefig(f'hog{i}.jpg', bbox_inches='tight')
+    hog_features_list.append(hog_features)
+    
+hog_features_array = np.array(hog_features_list)
+print(f"HOG features array shape: {hog_features_array.shape}")
+np.save("features/hog_features.npy", hog_features_array)
