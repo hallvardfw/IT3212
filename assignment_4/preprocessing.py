@@ -71,9 +71,9 @@ def augment_image(image_path:str, output_dir):
     tf.keras.preprocessing.image.save_img(f'{output_dir}/{new_image}', image.numpy())
     
 
-# resize_images('assignment_4/data', 'assignment_4/pp_data/resize')
-# convert_to_grayscale('assignment_4/pp_data/resize', 'assignment_4/pp_data/grayscale')
-# normalize_images('assignment_4/pp_data/grayscale', 'assignment_4/pp_data/normalized')
+resize_images('assignment_4/data', 'assignment_4/pp_data/resize')
+convert_to_grayscale('assignment_4/pp_data/resize', 'assignment_4/pp_data/grayscale')
+normalize_images('assignment_4/pp_data/grayscale', 'assignment_4/pp_data/normalized')
 
 categories = ['hatchback', 'motorcycle', 'pickup', 'sedan', 'suv']
 file_paths = glob.glob('assignment_4/pp_data/normalized/*')
